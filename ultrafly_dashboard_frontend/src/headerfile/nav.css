@@ -1,0 +1,17 @@
+.active{
+  color: #38bdf8;
+}
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgb(14,211,247);
+  background: linear-gradient(90deg, rgba(14,211,247,1) 0%, rgba(30,30,217,1) 49%, rgba(0,35,255,1) 100%);
+  transform-origin: 0%;
+
+}
+.dropdown:hover .dropdown-menu {
+  display: block;
+}

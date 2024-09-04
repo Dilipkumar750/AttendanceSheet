@@ -1,0 +1,21 @@
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-1 * var(--scroll-amount)));
+    }
+  }
+  
+  .animate-scroll {
+    display: flex;
+    animation-name: scroll;
+    animation-duration: var(--animation-duration);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+    --scroll-amount: 40%;
+    --animation-duration: 80s; 
+  }
+  

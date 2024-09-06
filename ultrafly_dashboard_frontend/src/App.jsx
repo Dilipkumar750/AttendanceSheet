@@ -30,6 +30,7 @@ const ResumeUploadHr = lazy(() => import("./componentss/ResumeUoloadHr"));
 const StatusCards=lazy(()=>import('./componentss/StatusCard'))
 const ResumeTable=lazy(()=>import('./componentss/resumespage/ResumeTable'))
 const AttendanceSheet=lazy(()=>import('./componentss/attendance/AttendanceSheet'))
+const Excel = lazy(()=> import ('./ui/src/components/excelTable'))
 
 
 
@@ -81,6 +82,7 @@ function App() {
             <Route path="resume-table" element={<ResumeTable />} />
             <Route path="attendance" element={<AttendancePage />} />
             <Route path="AttendanceSheet" element={<AttendanceSheet />} />
+            <Route path="excel" element={<Excel/>} />
           </Route>
 
           <Route path="*" element={<Pagenotfound />} />

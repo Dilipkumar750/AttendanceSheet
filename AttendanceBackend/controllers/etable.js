@@ -1,11 +1,9 @@
 const path = require("path")
-const Etable= require("../models/etableModel")
 const xlsx = require("xlsx");
-const EtableMaster = require("../models/etableModel");
+const EtableMaster = require("../modals/etableModel");
 exports.uploadFile = async (req, res) => {
     // Access the uploaded file
-    const file = req.file;
-
+    const file = req.file; 
 
     if (!file) {
         return res.status(400).send('No file uploaded.');
@@ -14,15 +12,14 @@ exports.uploadFile = async (req, res) => {
     try {
         const workbook = xlsx.readFile(file.path);
         const sheetNames = workbook.SheetNames;
-        const excelData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
+        const excelData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]); 
         // Save file information to MongoDB 
-        const newFile = excelData.map(value => {
-            
+        const newFile = excelData.map(value => { 
             return{...value} 
             
         
-    });
-       await Etable.insertMany(newFile)
+    }); 
+       await EtableMaster.insertMany(newFile)
      res.send({
         message: 'File uploaded and data extracted successfully!',
     });

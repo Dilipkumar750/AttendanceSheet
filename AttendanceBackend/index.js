@@ -10,6 +10,7 @@ const Grid = require('gridfs-stream'); // Make sure to import GridFS stream
 const userRoutes = require('./routes/userRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes')
 const resumeuploadRoutes =require('./routes/resumeUploadRoutes')
+const excelRoutes = require('./routes/etableRoute')
 const app = express();
 const url = process.env.ATLAS_URL;
 
@@ -29,6 +30,7 @@ const conn = mongoose.connection;
 
 app.use('/api/users', userRoutes);
 app.use('/api/attendance',attendanceRoutes)
+app.use('/api/ultrafly',excelRoutes)
 
 
 let gfs;

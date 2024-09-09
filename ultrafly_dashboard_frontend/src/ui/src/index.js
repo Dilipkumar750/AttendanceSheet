@@ -1,18 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import './index.css';
-import App from './App';
+import ExcellApp from './App';
 import reportWebVitals from './reportWebVitals';
-import { ExcellData } from './components/excelTable';
-import Store from "./redux/store/store";
+import { ExcellData } from './components/excelTable'; 
 import { Provider } from 'react-redux';
+import stores from './redux/store/store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
    
   <React.StrictMode>
-   <Provider store={Store} >
-      <App/>
-    
+   <Provider store={stores} >
+      <ExcellApp/>
     </Provider>
     
   </React.StrictMode>

@@ -16,7 +16,7 @@ export const ExcellData = () => {
   const dispatch = useDispatch();
   const fileInputRef = useRef(null);
   const [filterText, setFilterText] = useState("");
-  let data = useSelector((state) => state.exceltableData.data);
+  const data = useSelector((state) => state.exceltableData.data);
 
   useEffect(() => {
     if (!data || data.length === 0) {
@@ -24,7 +24,7 @@ export const ExcellData = () => {
     }
   }, []);
 
-  const data1 = data?.length ? data : [];
+  const data1 = data && data?.length ? data : [];
 
 
   console.log(data1)
@@ -221,7 +221,7 @@ export const ExcellData = () => {
     {
       dataField: 'action',
       text: "Action",
-      formatter: (cell, row) => (<span><input type="button" value='Delete' style={{ color: 'white', background: '#B5152E' }} onClick={() => { axios.delete(`${HOST}/api/ultrafly/remove/${row._id}`).then(() => (dispatch({ type: GET_TABLE_VALUE }))) }} />
+      formatter: (cell, row) => (<span><input type="button" value='Delete' style={{ color: 'white', background: '#B5152E' ,borderRadius:'5px'}} onClick={() => { axios.delete(`${HOST}/api/ultrafly/remove/${row._id}`).then(() => (dispatch({ type: GET_TABLE_VALUE }))) }} />
       </span>)
     },
   ];
@@ -230,9 +230,9 @@ export const ExcellData = () => {
 
 
   return (
-    <div>
+    <div className="bgcolors">
       {/* {loading && <LoadingSpinner />} Show spinner when loading */}
-      <div>
+      <div >
         <div className="main">
           <div>
             <label className="file-upload">

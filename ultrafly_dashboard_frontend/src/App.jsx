@@ -17,6 +17,7 @@ import loadimg from "./myimgs/s logo2.webp";
 import Headers from "./headerfile/header";
 import Foter from "./headerfile/Foterpage";
 import AttendancePage from "./componentss/attendance/AttendancePage";
+import { ExcellData } from "./Excell/components/excelTable";
 const Login = lazy(() => import("./componentss/Loginform"));
 
 
@@ -30,7 +31,7 @@ const ResumeUploadHr = lazy(() => import("./componentss/ResumeUoloadHr"));
 const StatusCards=lazy(()=>import('./componentss/StatusCard'))
 const ResumeTable=lazy(()=>import('./componentss/resumespage/ResumeTable'))
 const AttendanceSheet=lazy(()=>import('./componentss/attendance/AttendanceSheet'))
-const Excel = lazy(()=> import ('./ui/src/components/excelTable'))
+const Excel = lazy(()=> import ('./Excell/components/excelTable'))
 
 
 
@@ -83,9 +84,10 @@ function App() {
             <Route path="attendance" element={<AttendancePage />} />
             <Route path="AttendanceSheet" element={<AttendanceSheet />} />
             <Route path="excel" element={<Excel/>} />
+            
           </Route>
 
-          <Route path="*" element={<Pagenotfound />} />
+          {/* <Route path="*" element={<Pagenotfound />} /> */}
         </Routes>
       </Suspense>
       {/* {userInfo ? "" : <Foter />} */}

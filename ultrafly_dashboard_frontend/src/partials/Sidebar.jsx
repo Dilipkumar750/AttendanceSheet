@@ -13,6 +13,7 @@ import { PiUserListBold } from "react-icons/pi";
 import { RiMapPinUserFill } from "react-icons/ri";
 import { RiCalendarCheckLine } from "react-icons/ri";
 import { LuFileSpreadsheet } from "react-icons/lu";
+import { SiMicrosoftexcel } from "react-icons/si";
 
 // import Logo from "../images/favilogo.png";
 import Logo from '../images/ultraflyimages/ultrafly_logo_recreate.png'
@@ -462,6 +463,41 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 />
                                 <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                                  Attendence Sheet
+                                </span>
+                              </div>
+                            </NavLink>
+                          </li>
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="excel_table"
+                              className={({ isActive }) =>
+                                "block transition duration-150 truncate " +
+                                (isActive
+                                  ? "text-indigo-500"
+                                  : "text-slate-400 hover:text-slate-200")
+                              }
+                              onClick={(e) => {
+                                if (!userInfo.isAdmin) {
+                                  e.preventDefault();
+                                  notification.error({
+                                    message: "Access Denied",
+                                    description:
+                                      "You do not have permission to access this page.",
+                                  });
+                                }
+                              }}
+                            >
+                              <div className="flex gap-1">
+                              <SiMicrosoftexcel
+                                  className={`w-5 h-5 block  truncate transition duration-150 ${
+                                    pathname.includes("AttendanceSheet")
+                                      ? "text-slate-200"
+                                      : "hover:text-indigo-500"
+                                  }`}
+                                />
+                                <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                 Excel Table
                                 </span>
                               </div>
                             </NavLink>

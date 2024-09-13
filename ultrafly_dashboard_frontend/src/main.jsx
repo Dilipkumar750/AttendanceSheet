@@ -9,10 +9,8 @@ import App from './App';
 import "aos/dist/aos.css";
 import { Provider } from 'react-redux';
 import './index.css'
-import { store } from './store/store'; // replace with the path to your Redux store 
-import ExcellApp from './ui/src/App';
-import stores from './ui/src/redux/store/store';
-import { ExcellData } from './Excell/components/excelTable';
+import { store } from './store/store'; 
+;
 
 const root = createRoot(document.getElementById('root'));
 root.render(
@@ -22,12 +20,6 @@ root.render(
         <Provider store={store}>
           <App />
         </Provider>
-        <Provider store={stores}>
-          <Routes>
-            <Route path='/excel' element={<ExcellData />} />
-          </Routes>
-        </Provider>
-
       </ThemeProvider>
     </Router>
   </React.StrictMode>

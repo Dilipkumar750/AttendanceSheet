@@ -139,17 +139,15 @@ function AdminEdit() {
                         />
                         <span
                           className={`flex items-center space-x-[6px] rounded py-2 px-[18px] text-sm font-medium 
-          ${user.isAdmin ? "text-slate-700" : "bg-red-500 dark:text-white "}
-          `}
+                            ${user.isAdmin ? "text-slate-700" : "bg-red-500 dark:text-white "}`}
                         >
                           User
                         </span>
                         <span
-                          className={`flex items-center space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
-                            user.isAdmin
+                          className={`flex items-center space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${user.isAdmin
                               ? " bg-green-500 dark:text-white"
                               : "dark:text-slate-700"
-                          }`}
+                            }`}
                         >
                           Admin
                         </span>

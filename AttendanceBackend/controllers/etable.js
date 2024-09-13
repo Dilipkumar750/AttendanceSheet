@@ -3,34 +3,34 @@ const xlsx = require("xlsx");
 const EtableMaster = require("../modals/etableModel");
 exports.uploadFile = async (req, res) => {
     // Access the uploaded file
-    const file = req.file; 
-
-    if (!file) {
-        return res.status(400).send('No file uploaded.');
-    }
-
     try {
+        const file = req.file;
+        // console.log("file: ", file);
+
+        if (!file) {
+            return res.status(400).json({ success: false, message: 'No file uploaded.'});
+        }
+
         const workbook = xlsx.readFile(file.path);
         const sheetNames = workbook.SheetNames;
-        const excelData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]); 
+        const excelData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
         // Save file information to MongoDB 
-        const newFile = excelData.map(value => { 
-            return{...value} 
-            
-        
-    }); 
-       await EtableMaster.insertMany(newFile)
-     res.send({
-        message: 'File uploaded and data extracted successfully!',
-    });
-    }catch (error) {
-        res.status(500).send('Error saving file information.');
+        const newFile = excelData.map(value => {
+            return { ...value }
+
+
+        });
+        await EtableMaster.insertMany(newFile)
+        return res.status(200).json({ success: true, message: 'File uploaded and data extracted successfully!'});
+    } catch (error) {
+        return res.status(500).json({ success: false, message: error});
     }
 }
 
 exports.getExcelldata = async (req, res) => {
     try {
         const files = await EtableMaster.find();
+        console.log("files: ", files);
         res.status(200).json(files)
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving files', error });
@@ -48,9 +48,9 @@ exports.updateExcelldata = async (req, res) => {
 }
 exports.editExcelldata = async (req, res) => {
     const _id = req.params.id
-    const value=req.body 
+    const value = req.body
     try {
-        const data = await EtableMaster.findByIdAndUpdate(_id,value, // Update only the specific field
+        const data = await EtableMaster.findByIdAndUpdate(_id, value, // Update only the specific field
             { new: true });
         res.status(200).json(data)
     } catch (error) {

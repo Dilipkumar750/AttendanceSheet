@@ -32,5 +32,30 @@ const profileStorage = new GridFsStorage({
         });
     },
   });
+  const resumeFileStorage = new GridFsStorage({
+    url: mongoURI,
+    options: { useNewUrlParser: true, useUnifiedTopology: true },
+    file: (req, file) => {
+      return new Promise((resolve, reject) => {
+        if (!file) {
+            console.log('no file')
+          return reject(new Error("No file received"));
+        }
+        // console.log("Received file: ", file);
+        const filename = `${Date.now()}-${file.originalname}`;
+        const fileInfo = {
+          filename: filename,
+          bucketName: 'resumesfile',
+        };
+        resolve(fileInfo);
+      });
+    },
+    onError: (err) => {
+      console.error("Error in GridFS storage:", err);
+    },
+  });
+  
 
-module.exports = {storage,profileStorage};
+
+
+module.exports = {storage,profileStorage,resumeFileStorage};

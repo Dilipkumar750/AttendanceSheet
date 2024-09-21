@@ -59,12 +59,61 @@ export const getResume=createAsyncThunk(
     return response.data;
   }
 )
+export const getAllResume=createAsyncThunk(
+  'files/getAllResume',
+  async ()=>{
+    try {
+      const response=await axios.get(`${BASE_URL}/api/resume/get_all`)
+      return response.data;
+      
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        notification.error({
+          message: "Error",
+          description: error.response.data.message,
+        });
+      }
+    }
+  }
+)
+
+export const viewResume = createAsyncThunk(
+  'files/viewResume',
+  async (id) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/api/resume/get_view_resume/${id}`, {
+        responseType: 'blob', // Ensure this is set
+        headers: {
+          'Content-Type': 'application/pdf',
+        },
+      });
+      return response.data; // Return the Blob data directly
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        notification.error({
+          message: "Error",
+          description: error.response.data.message,
+        });
+      }
+      throw error; // Rethrow the error to handle it in the calling function
+    }
+  }
+);
+
+
+
 // Create a slice
 const uploadSlice = createSlice({
   name: 'resumeupload',
   initialState:{
     uploadFiles: { files:[], loading: false, error: null },
     getResume: { files:[], loading: false, error: null },
+    getAllResume: { data: '', loading: "idle", error: null},
+    viewResume: { data: '', loading: "idle", error: null},
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -93,6 +142,30 @@ const uploadSlice = createSlice({
       .addCase(getResume.rejected, (state, action) => {
         state.resumes.loading = false;
         state.resumes.error = action.payload;
+      });
+      //GET RESUME REDUCER
+      builder.addCase(getAllResume.pending, (state) => {
+        state.getAllResume.loading = "loading";
+      });
+      builder.addCase(getAllResume.fulfilled, (state, action) => {
+        state.getAllResume.loading = "succeeded";
+        state.getAllResume.data = action.payload;
+      });
+      builder.addCase(getAllResume.rejected, (state, action) => {
+        state.getAllResume.loading = "failed";
+        state.getAllResume.error = action.error.message;
+      });
+      //view resume
+      builder.addCase(viewResume.pending, (state) => {
+        state.viewResume.loading = "loading";
+      });
+      builder.addCase(viewResume.fulfilled, (state, action) => {
+        state.viewResume.loading = "succeeded";
+        state.viewResume.data = action.payload;
+      });
+      builder.addCase(viewResume.rejected, (state, action) => {
+        state.viewResume.loading = "failed";
+        state.viewResume.error = action.error.message;
       });
   },
 });

@@ -9,7 +9,7 @@ const router = express.Router();
 const upload = multer({ storage });
 
 // Route for uploading files and creating dynamic schema
-router.post('/upload/:jobType',  upload.array('files'), uploadController.createSchemaAndUploadFile);
+router.post('/upload/:jobType',  upload.array('file'), uploadController.createSchemaAndUploadFile);
 router.get('/files/:jobType', getFilesByJobType);
 router.get('/download/:pdfId', downloadFile);
 router.get('/files/:filename', getResume);

@@ -14,6 +14,7 @@ import { RiMapPinUserFill } from "react-icons/ri";
 import { RiCalendarCheckLine } from "react-icons/ri";
 import { LuFileSpreadsheet } from "react-icons/lu";
 import { SiMicrosoftexcel } from "react-icons/si";
+import { RiFileList3Line } from "react-icons/ri";
 
 // import Logo from "../images/favilogo.png";
 import Logo from '../images/ultraflyimages/ultrafly_logo_recreate.png'
@@ -400,41 +401,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="order-table"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " +
-                                (isActive
-                                  ? "text-indigo-500"
-                                  : "text-slate-400 hover:text-slate-200")
-                              }
-                              onClick={(e) => {
-                                if (!userInfo.isAdmin) {
-                                  e.preventDefault();
-                                  notification.error({
-                                    message: "Access Denied",
-                                    description:
-                                      "You do not have permission to access this page.",
-                                  });
-                                }
-                              }}
-                            >
-                              <div className="flex gap-1">
-                                <RiMapPinUserFill
-                                  className={`w-5 h-5 block  truncate transition duration-150 ${
-                                    pathname.includes("order-table")
-                                      ? "text-slate-200"
-                                      : "hover:text-indigo-500"
-                                  }`}
-                                />
-                                <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                  Project Orders List
-                                </span>
-                              </div>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
                               to="AttendanceSheet"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " +
@@ -502,6 +468,41 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </div>
                             </NavLink>
                           </li>
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="resume_list"
+                              className={({ isActive }) =>
+                                "block transition duration-150 truncate " +
+                                (isActive
+                                  ? "text-indigo-500"
+                                  : "text-slate-400 hover:text-slate-200")
+                              }
+                              onClick={(e) => {
+                                if (!userInfo.isAdmin) {
+                                  e.preventDefault();
+                                  notification.error({
+                                    message: "Access Denied",
+                                    description:
+                                      "You do not have permission to access this page.",
+                                  });
+                                }
+                              }}
+                            >
+                              <div className="flex gap-1">
+                              <RiFileList3Line
+                                  className={`w-5 h-5 block  truncate transition duration-150 ${
+                                    pathname.includes("AttendanceSheet")
+                                      ? "text-slate-200"
+                                      : "hover:text-indigo-500"
+                                  }`}
+                                />
+                                <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                 Resume List
+                                </span>
+                              </div>
+                            </NavLink>
+                          </li>
                         </ul>
                       </div>
                     </React.Fragment>
@@ -510,7 +511,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </SidebarLinkGroup>
 
               {/* Messages */}
-              <li
+              {/* <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
                   pathname.includes("messages") && "bg-slate-900"
                 }`}
@@ -558,7 +559,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         Messages
                       </span>
                     </div>
-                    {/* Badge */}
                     <div className="flex flex-shrink-0 ml-2">
                       <span className="inline-flex items-center justify-center h-5 text-xs font-medium text-white bg-indigo-500 px-2 rounded">
                         4
@@ -566,9 +566,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </div>
                   </div>
                 </NavLink>
-              </li>
+              </li> */}
               {/* Inbox */}
-              <li
+              {/* <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
                   pathname.includes("inbox") && "bg-slate-900"
                 }`}
@@ -590,7 +590,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </span>
                   </div>
                 </NavLink>
-              </li>
+              </li> */}
               {/* Calendar */}
               <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
@@ -662,7 +662,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 </NavLink>
               </li> */}
               {/* Settings */}
-              <SidebarLinkGroup activecondition={pathname.includes("settings")}>
+              {/* <SidebarLinkGroup activecondition={pathname.includes("settings")}>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
@@ -723,7 +723,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               Settings
                             </span>
                           </div>
-                          {/* Icon */}
+                          
                           <div className="flex shrink-0 ml-2">
                             <svg
                               className={`w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 ${
@@ -796,7 +796,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </React.Fragment>
                   );
                 }}
-              </SidebarLinkGroup>
+              </SidebarLinkGroup> */}
             </ul>
           </div>
         </div>

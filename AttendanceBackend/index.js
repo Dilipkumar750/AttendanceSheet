@@ -11,6 +11,8 @@ const userRoutes = require('./routes/userRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes')
 const resumeuploadRoutes =require('./routes/resumeUploadRoutes')
 const excelRoutes = require('./routes/etableRoute')
+const resumeRoutes = require('./routes/resumeRoutes')
+
 const app = express();
 const url = process.env.ATLAS_URL;
 
@@ -38,13 +40,15 @@ let gfs;
 conn.on('error', console.error.bind(console, 'connection error:'));
 conn.once('open', () => {
     console.log('MongoDB connected.');
-
+    
     // Init gfs
     gfs = Grid(conn.db, mongoose.mongo);
     gfs.collection('uploads');
     gfs.collection('images');
+    gfs.collection('resumesfile');
     // Use upload routes
     app.use('/api', resumeuploadRoutes);
+    app.use('/api/resume',resumeRoutes)
 
     // // Route for retrieving all files
     // app.get('/api/files', (req, res) => {

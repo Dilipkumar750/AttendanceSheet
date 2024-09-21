@@ -30,7 +30,7 @@ exports.uploadFile = async (req, res) => {
 exports.getExcelldata = async (req, res) => {
     try {
         const files = await EtableMaster.find();
-        console.log("files: ", files);
+        // console.log("files: ", files);
         res.status(200).json(files)
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving files', error });
@@ -47,19 +47,27 @@ exports.updateExcelldata = async (req, res) => {
     }
 }
 exports.editExcelldata = async (req, res) => {
-    const _id = req.params.id
-    const value = req.body
     try {
-        const data = await EtableMaster.findByIdAndUpdate(_id, value, // Update only the specific field
-            { new: true });
-        res.status(200).json(data)
+      const { id } = req.params; 
+  
+      const { data } = req.body;
+
+      const result = await EtableMaster.findByIdAndUpdate(
+        id, 
+        data, 
+        { new: true }
+      );
+  
+      res.status(200).json(result);
     } catch (error) {
-        res.status(500).json({ message: 'Error While Update', error });
+      console.error("Error while updating:", error);
+      res.status(500).json({ message: 'Error While Update', error });
     }
-}
+  };
+  
 exports.deleteExcelldata = async (req, res) => {
-    const _id = req.params.id
     try {
+        const _id = req.params.id
         const data = await EtableMaster.findByIdAndDelete(_id);
         res.status(200).json(data)
     } catch (error) {

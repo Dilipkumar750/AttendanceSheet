@@ -17,6 +17,6 @@ const upload = multer({ storage: storage });
 router.post('/post/excel_data', upload.single('file'), exceltable_controller.uploadFile);
 router.get('/get/excel_data', exceltable_controller.getExcelldata)
 router.get('/get/excel_data/:id', exceltable_controller.updateExcelldata)
-router.put('/post/excel_data/:id', exceltable_controller.editExcelldata)
+router.put('/edit/excel_data/:id', exceltable_controller.editExcelldata)
 router.delete('/remove/:id', exceltable_controller.deleteExcelldata)
 module.exports = router;

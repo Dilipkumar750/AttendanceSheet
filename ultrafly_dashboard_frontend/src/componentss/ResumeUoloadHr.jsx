@@ -32,9 +32,9 @@ function ResumeUploadHr() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Selected Files:', selectedFiles);
-    console.log('Job Type:', jobType);
-    console.log('User Info:', userInfo);
+    // console.log('Selected Files:', selectedFiles);
+    // console.log('Job Type:', jobType);
+    // console.log('User Info:', userInfo);
   
     if (selectedFiles.length === 0) {
       setErrorMessage('Please upload at least one PDF file.');

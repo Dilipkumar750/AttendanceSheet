@@ -31,6 +31,7 @@ const StatusCards=lazy(()=>import('./componentss/StatusCard'))
 const ResumeTable=lazy(()=>import('./componentss/resumespage/ResumeTable'))
 const AttendanceSheet=lazy(()=>import('./componentss/attendance/AttendanceSheet'))
 const ExcelTable=lazy(()=>import('./componentss/excel/ExcelTable'))
+const ResumeList=lazy(()=>import('./componentss/resumespage/ResumeList'))
 
 
 
@@ -66,12 +67,8 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<Login />} />
-        
-        
-
           <Route path="/register" element={<Registerform />} />
           <Route path="/userform" element={<Userform />} />
-
           {/* Outlet components */}
           <Route path="/Admindashboard" element={<Dashboard />}>
             <Route path="Admin-edit-table" element={<AdminEdit />} />
@@ -83,6 +80,7 @@ function App() {
             <Route path="attendance" element={<AttendancePage />} />
             <Route path="AttendanceSheet" element={<AttendanceSheet />} />
             <Route path="excel_table" element={<ExcelTable />} />
+            <Route path="resume_list" element={<ResumeList />} />
             
           </Route>
 

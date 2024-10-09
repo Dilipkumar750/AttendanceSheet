@@ -1,8 +1,7 @@
-
-
 const mongoose = require('mongoose');
 
-const fileSchema = new mongoose.Schema({},{strict:false});
+// Create a schema that allows dynamic keys (JSON format)
+const fileSchema = new mongoose.Schema({}, { strict: false });
 
 const EtableMaster = mongoose.model('excel_Data_collection', fileSchema);
 

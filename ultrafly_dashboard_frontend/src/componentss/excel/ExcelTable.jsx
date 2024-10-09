@@ -19,7 +19,7 @@ function ExcelTable() {
   const [tableData, setTableData] = useState(null);
   // const [fileName, setFileName] = useState("");
   const [searchRelevantExperience, setSearchRelevantExperience] = useState("");
-  const [searchCurrentPosition, setSearchCurrentPosition] = useState("");
+  const [searchPositionName, setSearchPositionName] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -60,33 +60,24 @@ function ExcelTable() {
 
   useEffect(() => {
     dispatch(getExceltablevalue());
-  }, [dispatch]);
+  }, [dispatch,updateExcel]);
 
   // Filter logic
   const filteredData =
     getData?.filter((item) => {
-      //* show exact experience,  if searchRelevantExperience = 2 then show only 2
       const relevantExperienceMatch = searchRelevantExperience
-        ? item.Relevant_Experience === Number(searchRelevantExperience)
+        ? String(item.R_Exp).includes(searchRelevantExperience)
         : true;
 
-      // * show all experience, if searchRelevantExperience = 2 then show 12, 23 , 52
-      // const relevantExperienceMatch = searchRelevantExperience
-      //   ? String(item.Relevant_Experience).includes(searchRelevantExperience)
-      //   : true;
-
-      // For the string-based filters, no need to change these
-      const currentPositionMatch = item.Current_Position
-        ? item.Current_Position.toLowerCase().includes(
-            searchCurrentPosition.toLowerCase()
-          )
+      const positionNameMatch = item.Position_Name
+        ? item.Position_Name.toLowerCase().includes(searchPositionName.toLowerCase())
         : true;
 
-      const locationMatch = item.Location
-        ? item.Location.toLowerCase().includes(searchLocation.toLowerCase())
+      const locationMatch = item.C_Location
+        ? item.C_Location.toLowerCase().includes(searchLocation.toLowerCase())
         : true;
 
-      return relevantExperienceMatch && currentPositionMatch && locationMatch;
+      return relevantExperienceMatch  && positionNameMatch && locationMatch;
     }) || [];
 
   //* Pagination logic
@@ -176,7 +167,7 @@ function ExcelTable() {
                   Email
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Total Experience
+                  Experience
                 </th>
                 <th scope="col" className="px-6 py-3">
                   <div>Relevant Experience</div>
@@ -195,16 +186,16 @@ function ExcelTable() {
                   </div>
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  <div>Current Position</div>
+                  <div>Position Name</div>
                   <div className="w-40">
                     <form className="flex items-center justify-center p-2">
                       <input
                         type="text"
                         placeholder="Search"
                         className="w-full px-2 py-1 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent text-black"
-                        value={searchCurrentPosition}
+                        value={searchPositionName}
                         onChange={(e) =>
-                          setSearchCurrentPosition(e.target.value)
+                          setSearchPositionName(e.target.value)
                         }
                       />
                     </form>
@@ -225,16 +216,25 @@ function ExcelTable() {
                   </div>
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  CTC
+                 C CTC
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Current Client
+                C NTH
+                </th>
+                <th scope="col" className="px-6 py-3">
+                E CTC
+                </th>
+                <th scope="col" className="px-6 py-3">
+                E NTH
                 </th>
                 <th scope="col" className="px-6 py-3 ">
                   <div className="w-20">Notice Period</div>
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Remarks
+                </th>
+                <th scope="col" className="px-6 py-3">
+                Status
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Action
@@ -269,7 +269,7 @@ function ExcelTable() {
                       onClick={(e) => makeEditable(e, index, 0)}
                       onBlur={(e)=>handleBlur(e,"Contact_No", row._id)}
                     >
-                      {row.Contact_No}
+                      {row.Contact_Number}
                     </td>
                     <td className="px-6 py-4"
                       contentEditable={
@@ -279,7 +279,7 @@ function ExcelTable() {
                       onClick={(e) => makeEditable(e, index, 0)}
                       onBlur={(e)=>handleBlur(e,"Email_ID", row._id)}
                     >
-                      {row.Email_ID}
+                      {row.Mail_ID}
                     </td>
                     <td className="px-6 py-4"
                       contentEditable={
@@ -287,9 +287,9 @@ function ExcelTable() {
                       }
                       suppressContentEditableWarning={true}
                       onClick={(e) => makeEditable(e, index, 0)}
-                      onBlur={(e)=>handleBlur(e,"Experience", row._id)}
+                      onBlur={(e)=>handleBlur(e,"Exp", row._id)}
                     >
-                      {row.Experience}
+                      {row.Exp}
                     </td>
                     <td className="px-6 py-4"
                       contentEditable={
@@ -297,9 +297,9 @@ function ExcelTable() {
                       }
                       suppressContentEditableWarning={true}
                       onClick={(e) => makeEditable(e, index, 0)}
-                      onBlur={(e)=>handleBlur(e,"Current_Position", row._id)}
+                      onBlur={(e)=>handleBlur(e,"R_Exp", row._id)}
                     >
-                      {row.Relevant_Experience}
+                      {row.R_Exp}
                     </td>
                     <td className="px-6 py-4"
                       contentEditable={
@@ -307,9 +307,9 @@ function ExcelTable() {
                       }
                       suppressContentEditableWarning={true}
                       onClick={(e) => makeEditable(e, index, 0)}
-                      onBlur={(e)=>handleBlur(e,"Location", row._id)}
+                      onBlur={(e)=>handleBlur(e,"Position_Name", row._id)}
                     >
-                      {row.Current_Position}
+                      {row.Position_Name}
                     </td>
                     <td className="px-6 py-4"
                       contentEditable={
@@ -317,9 +317,9 @@ function ExcelTable() {
                       }
                       suppressContentEditableWarning={true}
                       onClick={(e) => makeEditable(e, index, 0)}
-                      onBlur={(e)=>handleBlur(e,"CTC", row._id)}
+                      onBlur={(e)=>handleBlur(e,"C_Location", row._id)}
                     >
-                      {row.Location}
+                      {row.C_Location}
                     </td>
                     <td className="px-6 py-4"
                       contentEditable={
@@ -327,9 +327,9 @@ function ExcelTable() {
                       }
                       suppressContentEditableWarning={true}
                       onClick={(e) => makeEditable(e, index, 0)}
-                      onBlur={(e)=>handleBlur(e,"Current_Client", row._id)}
+                      onBlur={(e)=>handleBlur(e,"C_CTC", row._id)}
                     >
-                      {row.CTC}
+                      {row.C_CTC}
                     </td>
                     <td className="px-6 py-4"
                       contentEditable={
@@ -337,9 +337,9 @@ function ExcelTable() {
                       }
                       suppressContentEditableWarning={true}
                       onClick={(e) => makeEditable(e, index, 0)}
-                      onBlur={(e)=>handleBlur(e,"Notice_Period", row._id)}
+                      onBlur={(e)=>handleBlur(e,"C_NTH", row._id)}
                     >
-                      {row.Current_Client}
+                      {row.C_NTH}
                     </td>
                     <td className="px-6 py-4"
                       contentEditable={
@@ -347,9 +347,9 @@ function ExcelTable() {
                       }
                       suppressContentEditableWarning={true}
                       onClick={(e) => makeEditable(e, index, 0)}
-                      onBlur={(e)=>handleBlur(e,"Notice_Period", row._id)}
+                      onBlur={(e)=>handleBlur(e,"E_CTC", row._id)}
                     >
-                      {row.Notice_Period}
+                      {row.E_CTC}
                     </td>
                     <td className="px-6 py-4"
                       contentEditable={
@@ -357,9 +357,39 @@ function ExcelTable() {
                       }
                       suppressContentEditableWarning={true}
                       onClick={(e) => makeEditable(e, index, 0)}
-                      onBlur={(e)=>handleBlur(e,"FeedBack", row._id)}
+                      onBlur={(e)=>handleBlur(e,"E_NTH", row._id)}
                     >
-                      {row.FeedBack}
+                      {row.E_NTH}
+                    </td>
+                    <td className="px-6 py-4"
+                      contentEditable={
+                        editTd && editTd.row === index && editTd.col === 0
+                      }
+                      suppressContentEditableWarning={true}
+                      onClick={(e) => makeEditable(e, index, 0)}
+                      onBlur={(e)=>handleBlur(e,"NP", row._id)}
+                    >
+                      {row.NP}
+                    </td>
+                    <td className="px-6 py-4"
+                      contentEditable={
+                        editTd && editTd.row === index && editTd.col === 0
+                      }
+                      suppressContentEditableWarning={true}
+                      onClick={(e) => makeEditable(e, index, 0)}
+                      onBlur={(e)=>handleBlur(e,"Remarks", row._id)}
+                    >
+                      {row.Remarks}
+                    </td>
+                    <td className="px-6 py-4"
+                      contentEditable={
+                        editTd && editTd.row === index && editTd.col === 0
+                      }
+                      suppressContentEditableWarning={true}
+                      onClick={(e) => makeEditable(e, index, 0)}
+                      onBlur={(e)=>handleBlur(e,"Status", row._id)}
+                    >
+                      {row.Status}
                     </td>
                     <td className="px-6 py-4">
                         <button onClick={()=>handleDelete(row._id)}><LuTrash2 className="text-red-500 text-xl" /></button>
